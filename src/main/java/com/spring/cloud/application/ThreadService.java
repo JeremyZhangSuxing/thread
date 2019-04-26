@@ -29,9 +29,12 @@ public class ThreadService {
         this.msgLogMapper = msgLogMapper;
     }
 
-    public List<String> getList(){
+    public List<String> getList() {
         MsgLogExample example = new MsgLogExample();
         example.or().andIsDeletedEqualTo(Byte.valueOf("0"));
-        return msgLogMapper.selectByExample(example).stream().map(MsgLog::getContent).collect(Collectors.toList());
+        // 流的时候做排序
+        return msgLogMapper.selectByExample(example).stream().map(MsgLog::getContent).
+                sorted((String s1, String s2) -> s1.charAt(s1.length() - 1) - s2.charAt(s2.length() - 2)).
+                collect(Collectors.toList());
     }
 }
