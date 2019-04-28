@@ -7,6 +7,8 @@
 
 package com.spring.cloud.application;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.spring.cloud.domain.entity.MsgLog;
 import com.spring.cloud.domain.entity.MsgLogExample;
 import com.spring.cloud.interfaces.mapper.MsgLogMapper;
@@ -36,5 +38,14 @@ public class ThreadService {
         return msgLogMapper.selectByExample(example).stream().map(MsgLog::getContent).
                 sorted((String s1, String s2) -> s1.charAt(s1.length() - 1) - s2.charAt(s2.length() - 2)).
                 collect(Collectors.toList());
+    }
+
+    public PageInfo<String> getLogsPage(int start, int pageSize){
+        PageHelper.startPage(start,pageSize);
+        MsgLogExample example  = new MsgLogExample();
+        example.or().andIsDeletedEqualTo(Byte.valueOf("0"));
+        List<String> list = msgLogMapper.selectByExample(example).stream().map(MsgLog::getContent).collect(Collectors.toList());
+        PageInfo<String> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }

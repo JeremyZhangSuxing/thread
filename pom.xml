@@ -8,18 +8,20 @@
 		<version>2.1.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.spring.cloud</groupId>
 	<artifactId>thread</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>thread</name>
-	<description>Demo project for Spring Boot</description>
+    <description>Demo project for Spring Boot</description>
 
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
         <swagger-2>2.4.0</swagger-2>
         <lombok.version>1.16.20</lombok.version>
-	</properties>
+        <pagehelper>5.1.8</pagehelper>
+    </properties>
 
 	<dependencies>
 		<dependency>
@@ -68,6 +70,19 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <!--分页拦截器-->
+        <!--<dependency>-->
+            <!--<groupId>com.github.pagehelper</groupId>-->
+            <!--<artifactId>pagehelper</artifactId>-->
+            <!--<version>${pagehelper}</version>-->
+        <!--</dependency>-->
+
+        <!--pagehelper -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.10</version>
         </dependency>
 	</dependencies>
 
