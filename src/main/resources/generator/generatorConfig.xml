@@ -10,7 +10,12 @@
         <!--处理sql中的`符号-->
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
-
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="autoDelimitKeywords" value="true"/>
+            <property name="beginningDelimiter" value="`"/>
+            <property name="endingDelimiter" value="`"/>
+        </commentGenerator>
         <!--&lt;!&ndash;添加自定义的继承接口&ndash;&gt;-->
         <!--<plugin type="tk.mybatis.mapper.generator.MapperPlugin">-->
             <!--<property name="mappers" value="com.spring.cloud.common.MyMapper"/>-->
