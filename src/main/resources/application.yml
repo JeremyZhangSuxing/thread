@@ -19,11 +19,11 @@ eureka:
       defaultZone:  http://${eureka.instance.hostname}:${server.port}/eureka
   server:
     enable-self-preservation: false
-    eviction-interval-timer-in-ms: 3000
+#    eviction-interval-timer-in-ms: 3000
 # 打印sql
 logging:
   level:
-     com.spring.cloud.interfaces.mapper : debug
+    com.spring.cloud: debug
 #扫描文件路径
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
