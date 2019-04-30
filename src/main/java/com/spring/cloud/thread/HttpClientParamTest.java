@@ -105,7 +105,7 @@ public class HttpClientParamTest {
         HttpRequestRetryHandler requestRetryHandler = new DefaultHttpRequestRetryHandler(0, false);
         //自定义重试策略
         HttpRequestRetryHandler myRetryHandler = new HttpRequestRetryHandler() {
-
+            @Override
             public boolean retryRequest(IOException exception, int executionCount, HttpContext context) {
                 //Do not retry if over max retry count
                 if (executionCount >= 3) {
