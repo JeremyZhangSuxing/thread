@@ -22,6 +22,7 @@
         <lombok.version>1.16.20</lombok.version>
         <pagehelper>5.1.8</pagehelper>
         <httpcomponents>4.4.1</httpcomponents>
+        <spring-redis>2.1.2.RELEASE</spring-redis>
     </properties>
 
 	<dependencies>
@@ -131,6 +132,12 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.41</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>${spring-redis}</version>
         </dependency>
     </dependencies>
 

@@ -77,4 +77,10 @@ public class LoggerController {
         log.info("调用了方法getResultTwo");
         return MyResult.OK("调用了方法getResultTwo", null);
     }
+
+    @GetMapping("/thread")
+    public String getThread() {
+        return threadService.testThread();
+    }
+
 }
