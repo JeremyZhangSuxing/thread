@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SwitchController {
 
     private final RedisTemplate redisTemplate;
-    private static final String SYNC_HK_SWITCH = "accounting.sync.switch";
+    private static final String SYNC_HK_SWITCH = "jere.test.switch";
 
     public SwitchController(RedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
