@@ -63,7 +63,7 @@ public class ThreadService {
         while (true) {
             boolean switchFlag = redisTemplate.opsForValue().get(SYNC_HK_SWITCH) == null ? true : false;
             if (switchFlag) {
-                log.debug("switch has been turned off");
+                log.debug("switch has been turned off--");
                 break;
             }
             log.debug("switch has been turned on");
