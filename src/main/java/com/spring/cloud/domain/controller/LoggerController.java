@@ -28,7 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/log")
-@Api(value = "SayController|一个用来测试swagger注解的控制器")
+@Api(tags = {"SayController|一个用来测试swagger注解的控制器"})
 @Slf4j
 public class LoggerController {
     private final ThreadService threadService;

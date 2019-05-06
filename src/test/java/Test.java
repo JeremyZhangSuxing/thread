@@ -74,6 +74,7 @@ public class Test {
         infoList.add(new FlightTicketInfo("22222", "xiaoming", "22"));
         infoList.add(new FlightTicketInfo("33333", "xiaoming", "23"));
         infoList.add(new FlightTicketInfo("11111", "xiaoming", "22"));
+        //TreeSetSet的一个实现，默认实现排序；故TreeSet的泛型类型必须是Comparable或者Comparator。TreeSet基于TreeMap实现。
         infoList.stream()
                 .collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(f -> f.getUserName() + f.getOrderNumber()))), ArrayList::new))
                 .forEach(System.out::println);

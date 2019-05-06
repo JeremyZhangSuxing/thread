@@ -59,7 +59,6 @@ public class ThreadService {
         return pageInfo;
     }
 
-
     public String testThread() {
         while (true) {
             boolean switchFlag = redisTemplate.opsForValue().get(SYNC_HK_SWITCH) == null ? true : false;
