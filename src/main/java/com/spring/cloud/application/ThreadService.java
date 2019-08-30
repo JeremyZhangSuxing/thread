@@ -13,10 +13,14 @@ import com.spring.cloud.domain.entity.MsgLog;
 import com.spring.cloud.domain.entity.MsgLogExample;
 import com.spring.cloud.interfaces.mapper.MsgLogMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.stream.Collectors;
@@ -31,14 +35,15 @@ public class ThreadService {
     private final MsgLogMapper msgLogMapper;
     private final Executor executor;
     private final RedisTemplate redisTemplate;
-
     private static final String SYNC_HK_SWITCH = "accounting.sync.switch";
-
+    private final SqlSessionTemplate sqlSessionTemplate;
     @Autowired
-    public ThreadService(MsgLogMapper msgLogMapper, Executor executor, RedisTemplate redisTemplate) {
+
+    public ThreadService(MsgLogMapper msgLogMapper, Executor executor, RedisTemplate redisTemplate, SqlSessionTemplate sqlSessionTemplate) {
         this.msgLogMapper = msgLogMapper;
         this.executor = executor;
         this.redisTemplate = redisTemplate;
+        this.sqlSessionTemplate = sqlSessionTemplate;
     }
 
     public List<String> getList() {
@@ -74,5 +79,21 @@ public class ThreadService {
             }
         }
         return "this is a switch";
+    }
+
+
+    public void testInsertBatch() {
+        SqlSession sqlSession = sqlSessionTemplate.getSqlSessionFactory().openSession(ExecutorType.BATCH, false);
+        log.debug("start time ---" + new Date());
+        for (int i = 0; i < 50000; i++) {
+            MsgLogMapper mapper = sqlSession.getMapper(MsgLogMapper.class);
+            MsgLog msgLog = MsgLog.builder().clientType("jere").
+                    isDeleted(Byte.valueOf("0")).clientType("wx").content("test").fromUserId("1").toUserId("ere").sendFrom(Byte.valueOf("2")).
+                    createdBy("5").updatedBy("1").createdTime(new Date()).updatedTime(new Date()).msgType("this type").recordVersion(122).build();
+            mapper.insert(msgLog);
+        }
+        sqlSession.commit();
+        sqlSession.close();
+        log.debug("end time ---" + new Date());
     }
 }
