@@ -1,0 +1,123 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+单号:
+<input id="inputText" type="text" name="firstname" style="width:300px; height:25px;"/>
+<br>
+<br>
+
+分库分表数:
+<select id="selFactor">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="4" selected>4</option>
+    <option value="8">8</option>
+    <option value="16">16</option>
+</select>
+<br>
+<br>
+
+<button type="button" onclick="calOrderNo()">订单号计算</button>
+<button type="button" onclick="calNoByCrc32()">CRC32计算</button>
+<button type="button" onclick="calNoByCrc32On1()">CRC32计算(订单外单维度,取后三位)</button>
+<button type="button" onclick="calNoByCrc32On2()">CRC32计算(库存商品维度,intdiv(2))</button>
+<button type="button" onclick="calNoByCrc32On3()">ods分库分表结果</button>
+<button type="button" onclick="calNoByCrc32On4()">cis分库分表结果</button>
+
+
+<br>
+<br>
+
+<div id="resDiv"></div>
+
+</body>
+
+<script type="text/javascript">
+
+    function calOrderNo() {
+        var input = document.getElementById("inputText").value;
+        var factor = document.getElementById("selFactor").value;
+        var shardkey = input.substring(2, 5);
+        var index = shardkey % factor;
+        console.log(index);
+        document.getElementById("resDiv").innerHTML = "订单号： " + input + "<br>Sharding值： " + shardkey + "<br>index：" + index;
+    }
+
+
+    function calNoByCrc32() {
+        var input = document.getElementById("inputText").value;
+        var factor = document.getElementById("selFactor").value;
+        var crc32Val = crc32(input);
+        var index = crc32Val % factor;
+        document.getElementById("resDiv").innerHTML = "单号： " + input + "<br>crc32值： " + crc32Val + "<br>index：" + index;
+    }
+
+
+    function calNoByCrc32On1() {
+        var input = document.getElementById("inputText").value;
+        var factor = document.getElementById("selFactor").value;
+        var crc32Val = crc32(input);
+        var shardkey = crc32Val % 1000;
+        var index = shardkey % factor;
+        document.getElementById("resDiv").innerHTML = "单号： " + input + "<br>crc32值： " + crc32Val + "<br>index：" + index;
+    }
+
+
+    function calNoByCrc32On2() {
+        var input = document.getElementById("inputText").value;
+        var factor = document.getElementById("selFactor").value;
+        var crc32Val = crc32(input);
+        var shardkey = Math.floor(crc32Val / 2);
+        var index = shardkey % factor;
+        document.getElementById("resDiv").innerHTML = "单号： " + input + "<br>crc32值： " + crc32Val + "<br>index：" + index;
+    }
+
+
+    function calNoByCrc32On3() {
+        var input = document.getElementById("inputText").value;
+        var dateNo = crc32(input) % 2;
+        var shardkey = Math.floor(crc32(input) / 2);
+        var detailNo = shardkey % 8;
+        var tableNo = shardkey % 2;
+        document.getElementById("resDiv").innerHTML = "数据库号： " + dateNo + "<br>主表号： " + tableNo + "<br>明细/流水表 号：" + detailNo;
+    }
+
+    function calNoByCrc32On4() {
+        var input = document.getElementById("inputText").value;
+        var dateNo = crc32(input) % 2;
+        var shardkey = Math.floor(crc32(input) / 2);
+        var tableNo = shardkey % 4;
+        document.getElementById("resDiv").innerHTML = "数据库号： " + dateNo + "<br>表号：" + tableNo;
+    }
+
+
+    var makeCRCTable = function () {
+        var c;
+        var crcTable = [];
+        for (var n = 0; n < 256; n++) {
+            c = n;
+            for (var k = 0; k < 8; k++) {
+                c = ((c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1));
+            }
+            crcTable[n] = c;
+        }
+        return crcTable;
+    }
+
+    var crc32 = function (str) {
+        var crcTable = window.crcTable || (window.crcTable = makeCRCTable());
+        var crc = 0 ^ (-1);
+
+        for (var i = 0; i < str.length; i++) {
+            crc = (crc >>> 8) ^ crcTable[(crc ^ str.charCodeAt(i)) & 0xFF];
+        }
+
+        return (crc ^ (-1)) >>> 0;
+    };
+
+
+</script>
+
+</html>
