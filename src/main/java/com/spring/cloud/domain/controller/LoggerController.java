@@ -8,8 +8,6 @@ package com.spring.cloud.domain.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.spring.cloud.application.ThreadService;
-import com.spring.cloud.aspect.MyResult;
-import com.spring.cloud.domain.annotion.RateLimit;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -45,39 +43,6 @@ public class LoggerController {
     @ApiOperation("page")
     public ResponseEntity<PageInfo<String>> getMsgPage(@RequestParam Integer start, @RequestParam Integer pageSize ){
         return ResponseEntity.ok().body(threadService.getLogsPage(start,pageSize));
-    }
-
-    @GetMapping("/limit5")
-    @RateLimit(limitNum = 5)
-    public ResponseEntity getResults() {
-        log.info("调用了方法getResults");
-        return ResponseEntity.ok("调用了方法");
-    }
-
-    @GetMapping("/limit20")
-    @RateLimit(limitNum = 20)
-    public ResponseEntity getResultTwo() {
-        log.info("调用了方法getResultTwo");
-        return ResponseEntity.ok("调用了方法getResultTwo");
-    }
-
-    @GetMapping("/limit55")
-    @RateLimit(limitNum = 5)
-    public MyResult getResults1() {
-        log.info("调用了方法getResults");
-        return MyResult.OK("调用了方法", null);
-    }
-
-    @RateLimit(limitNum = 10)
-    @GetMapping("/limit100")
-    public MyResult getResultTwo1() {
-        log.info("调用了方法getResultTwo");
-        return MyResult.OK("调用了方法getResultTwo", null);
-    }
-
-    @GetMapping("/thread")
-    public String getThread() {
-        return threadService.testThread();
     }
 
     @ApiOperation("批量插入")
