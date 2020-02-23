@@ -17,12 +17,10 @@ import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.stream.Collectors;
 
 /**
@@ -33,16 +31,12 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ThreadService {
     private final MsgLogMapper msgLogMapper;
-    private final Executor executor;
-    private final RedisTemplate redisTemplate;
-    private static final String SYNC_HK_SWITCH = "accounting.sync.switch";
     private final SqlSessionTemplate sqlSessionTemplate;
-    @Autowired
 
-    public ThreadService(MsgLogMapper msgLogMapper, Executor executor, RedisTemplate redisTemplate, SqlSessionTemplate sqlSessionTemplate) {
+    @Autowired
+    public ThreadService(MsgLogMapper msgLogMapper,
+                         SqlSessionTemplate sqlSessionTemplate) {
         this.msgLogMapper = msgLogMapper;
-        this.executor = executor;
-        this.redisTemplate = redisTemplate;
         this.sqlSessionTemplate = sqlSessionTemplate;
     }
 
@@ -63,24 +57,6 @@ public class ThreadService {
         PageInfo<String> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
-
-    public String testThread() {
-        while (true) {
-            boolean switchFlag = redisTemplate.opsForValue().get(SYNC_HK_SWITCH) == null ? true : false;
-            if (switchFlag) {
-                log.debug("switch has been turned off--");
-                break;
-            }
-            log.debug("switch has been turned on");
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                log.debug(e.getMessage());
-            }
-        }
-        return "this is a switch";
-    }
-
 
     public void testInsertBatch() {
         SqlSession sqlSession = sqlSessionTemplate.getSqlSessionFactory().openSession(ExecutorType.BATCH, false);

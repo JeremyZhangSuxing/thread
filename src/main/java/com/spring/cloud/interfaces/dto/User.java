@@ -3,6 +3,7 @@ package com.spring.cloud.interfaces.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.HashSet;
 import java.util.Hashtable;
 
 /**
@@ -21,6 +22,10 @@ public class User {
      */
     private String position;
 
+//    @Override
+//    public int hashCode() {
+//        return 1;
+//    }
 
     public static void main(String[] args) {
 
@@ -32,9 +37,9 @@ public class User {
 //        String email = Optional.ofNullable(user).map(User::getEmail).orElse("没有值呢");
 //        System.out.println(email);
 
-
-        User user1 = new User("", "");
-        User user4 = new User("", "");
+        User user = new User("", "");
+        User user1 = new User("1", "");
+        User user4 = new User("1", "");
         System.out.println(user1.hashCode());
         System.out.println(user4.hashCode());
         System.out.println(user1.equals(user4));
@@ -47,9 +52,15 @@ public class User {
         Hashtable<String, String> hashTable = new Hashtable<>();
         hashTable.put("1", "1");
         hashTable.put("1", "2");
-        hashTable.put(null, "q");
+//        hashTable.put(null, "q");
         for (String s : hashTable.keySet()) {
             System.out.println(hashTable.get(s));
+        }
+        HashSet<User> userHashSet = new HashSet<>();
+        userHashSet.add(user1);
+        userHashSet.add(user4);
+        for (User user5 : userHashSet) {
+            System.out.println("——————" + user.hashCode());
         }
     }
 }
