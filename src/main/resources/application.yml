@@ -4,7 +4,7 @@ spring:
   application:
     name: eureka-server
   datasource:
-    driver.class.name:  com.mysql.cj.jdbc.Driver
+    driver-class-name:  com.mysql.cj.jdbc.Driver
     url:  jdbc:mysql://localhost:3306/test?serverTimezone=UTC
     username:  root
     password:  admin
@@ -42,3 +42,12 @@ pagehelper:
   support-methods-arguments: true
   params: count=countSql
 #  redis
+#幂等配置
+idempotent:
+  jdbc:
+    global-table: ods_biz_idempotent
+school:
+  name: 小伙子
+  age: 12
+
+

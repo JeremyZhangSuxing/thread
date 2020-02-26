@@ -23,9 +23,10 @@
 
         <!--数据源配置-->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/cyx_im?tinyInt1isBit=false"
+                        connectionURL="jdbc:mysql://localhost:3306/test?tinyInt1isBit=true"
                         userId="root"
                         password="admin">
+            <property name="serverTimezone" value="UTC"/>
         </jdbcConnection>
 
         <!--model包路径-->
@@ -36,9 +37,20 @@
         <javaClientGenerator targetPackage="com.spring.cloud.interfaces.mapper" targetProject="src/main/java"
                              type="XMLMAPPER"/>
         <!--表配置，tableName支持%，表示全部生成-->
-        <table tableName="user_info" domainObjectName="UserInfo">
+        <table tableName="ods_task" domainObjectName="OdsTask">
             <!--mysql 配置-->
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+            <generatedKey identity="true" column="id" sqlStatement="SELECT LAST_INSERT_ID()"/>
+            <!--<columnOverride column="status" javaType="Integer"/>-->
+            <!--<columnOverride column="channel_source" javaType="Integer"/>-->
+            <ignoreColumn column="update_time"/>
         </table>
+
+        <table tableName="job_task" domainObjectName="JobTask">
+            <generatedKey identity="true" column="id" sqlStatement="SELECT LAST_INSERT_ID()"/>
+            <!--<columnOverride column="status" javaType="Integer"/>-->
+            <!--<columnOverride column="channel_source" javaType="Integer"/>-->
+            <ignoreColumn column="update_time"/>
+        </table>
+
     </context>
 </generatorConfiguration>
