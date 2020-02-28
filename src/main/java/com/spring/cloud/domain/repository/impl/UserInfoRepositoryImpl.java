@@ -79,4 +79,16 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
         example.createCriteria().andNickNameEqualTo(userInfo.getNickName());
         return userInfoMapper.updateByExampleSelective(userInfo, example);
     }
+
+    /**
+     * 获取全部用户
+     *
+     * @return
+     */
+    @Override
+    public List<UserInfo> queryAll() {
+        UserInfoExample example = new UserInfoExample();
+        example.createCriteria().andDeletedEqualTo((byte) 0);
+        return userInfoMapper.selectByExample(example);
+    }
 }

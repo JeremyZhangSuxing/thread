@@ -3,14 +3,13 @@
  *
  * 注意：本内容仅限于内部传阅，禁止外泄以及用于其他的商业目的
  */
-package com.spring.cloud.domain.config;
+package com.spring.cloud.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.stereotype.Component;
 
 import java.util.concurrent.*;
 
@@ -20,7 +19,6 @@ import java.util.concurrent.*;
  */
 @EnableAsync
 @Configuration
-@Component
 public class ThreadPoolConfig {
     @Bean("executor")
     public Executor taskExecutor() {
@@ -45,9 +43,21 @@ public class ThreadPoolConfig {
                 3,
                 60L,
                 TimeUnit.SECONDS,
-                new LinkedBlockingQueue<Runnable>(100),
+                new LinkedBlockingQueue<>(100),
                 new CustomizableThreadFactory("common-logger-thread-"),
                 new ThreadPoolExecutor.DiscardOldestPolicy());
+    }
+
+    /**
+     * 通用业务线程池
+     */
+    @Bean("commonUserThread")
+    public ExecutorService commonUserThread() {
+        return new ThreadPoolExecutor(
+                10, 50, 3, TimeUnit.MINUTES,
+                new ArrayBlockingQueue<>(5000),
+                new CustomizableThreadFactory("user_common_thread-"),
+                new ThreadPoolExecutor.CallerRunsPolicy());
     }
 
 }

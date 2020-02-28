@@ -8,10 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author zhang.suxing
@@ -27,8 +24,8 @@ public class AuthController {
 
     @ApiOperation(value = "用户注册接口")
     @PostMapping("/register")
-    public ResponseEntity<AuthResponseVo> register(@RequestBody UserInfoDto userInfoDto) {
-        return ResponseEntity.ok(authService.registerUserInfo(userInfoDto));
+    public ResponseEntity<AuthResponseVo> register(@RequestBody UserInfoDto req) {
+        return ResponseEntity.ok(authService.registerUserInfo(req));
     }
 
     @ApiOperation(value = "用户登录接接口")
@@ -37,9 +34,8 @@ public class AuthController {
         return ResponseEntity.ok(authService.signIn(userDto.getNickName(), userDto.getPassWord()));
     }
 
-    @ApiOperation(value = "用户修改密码接口")
-    @PostMapping("/modifyUserInfo")
-    public ResponseEntity<AuthResponseVo> modifyPassWord(@RequestBody ModifyUserDto userDto) {
-        return ResponseEntity.ok(authService.modifyUserInfo(userDto));
+    @GetMapping("/testThread")
+    public ResponseEntity<AuthResponseVo> testThread() {
+        return ResponseEntity.ok(authService.runThreadLocal());
     }
 }

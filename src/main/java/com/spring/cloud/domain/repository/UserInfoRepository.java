@@ -2,6 +2,8 @@ package com.spring.cloud.domain.repository;
 
 import com.spring.cloud.domain.entity.UserInfo;
 
+import java.util.List;
+
 /**
  * @author zhang.suxing
  * @date 2020/2/1 14:25
@@ -40,5 +42,12 @@ public interface UserInfoRepository {
      * @return
      */
     int updateUserInfo(UserInfo userInfo);
+
+    /**
+     * 获取全部用户
+     *
+     * @return
+     */
+    List<UserInfo> queryAll();
 
 }
