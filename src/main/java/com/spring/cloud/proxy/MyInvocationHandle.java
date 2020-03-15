@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
  * @author zhang.suxing
  * @date 2020/3/3 11:17
  **/
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class MyInvocationHandle implements InvocationHandler {
     /**
      * 目标对象传递进来
