@@ -1,5 +1,6 @@
 package com.spring.cloud.application;
 
+import com.spring.cloud.domain.annotion.Idempotent;
 import com.spring.cloud.domain.controller.dto.AuthResponseVo;
 import com.spring.cloud.domain.enmus.ApiErrorCode;
 import com.spring.cloud.domain.entity.UserInfo;
@@ -40,22 +41,18 @@ public class AuthService {
     /**
      * 用户注册方法
      */
-//    @Idempotent(key = "#req.nickName + '_' + #req.phone")
+    @Idempotent(key = "#req.nickName + '_' + #req.phone")
     public AuthResponseVo registerUserInfo(UserInfoDto req) {
         if (Objects.nonNull(userInfoRepository.queryByNickName(req.getNickName()))) {
             throw BusinessException.buildException(ApiErrorCode.NICK_NAME_ALREADY_REGISTER);
         }
-        String nickName = req.getNickName();
-        for (int i = 0; i < 100; i++) {
-            UserInfo userInfo = new UserInfo();
-            req.setNickName(nickName + i);
-            BeanUtils.copyProperties(req, userInfo);
-            try {
-                userInfoRepository.insertUserInfo(userInfo);
-            } catch (Exception e) {
-                log.error("用户信息保存数据库失败，请重试" + e.getMessage());
-            }
-            i++;
+        UserInfo userInfo = new UserInfo();
+        BeanUtils.copyProperties(req, req);
+        try {
+            userInfoRepository.insertUserInfo(userInfo);
+            return AuthResponseVo.success();
+        } catch (Exception e) {
+            log.error("用户信息保存数据库失败，请重试" + e.getMessage());
         }
         throw BusinessException.buildException(ApiErrorCode.OPERATION_DATE_FAIL);
     }
@@ -85,7 +82,9 @@ public class AuthService {
         throw BusinessException.buildException(ApiErrorCode.OPERATION_DATE_FAIL);
     }
 
-
+    /**
+     * 测试并发编程
+     */
     public AuthResponseVo runThreadLocal() {
         List<UserInfo> list = userInfoRepository.queryAll();
         List<Callable<Boolean>> futureTasks = new ArrayList<>(list.size());
