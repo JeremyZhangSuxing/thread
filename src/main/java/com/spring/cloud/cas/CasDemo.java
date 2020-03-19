@@ -1,4 +1,4 @@
-package com.spring.cloud;
+package com.spring.cloud.cas;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
  * @author zhang.suxing
  * @date 2020/3/18 21:17
  **/
-public class Map {
+public class CasDemo {
     private static int count = 0;
 
     private static void request() throws InterruptedException {
