@@ -14,14 +14,10 @@ public class CasOriginDemo {
 
     public static void main(String[] args) {
         ExecutorService executorService = ThreadUtils.buildThreadPool();
-        /**
-         * 测试abd
-         */
-//        executorService.execute(CasOriginDemo::mainThread);
-//        executorService.execute(CasOriginDemo::otherThread);
-        /**
-         * 测试版版本号避免ada
-         */
+        //测试aba
+        executorService.execute(CasOriginDemo::mainThread);
+        executorService.execute(CasOriginDemo::otherThread);
+        //测试版版本号避免aba
         executorService.execute(CasOriginDemo::mainReferenceThread);
         executorService.execute(CasOriginDemo::otherReferenceThread);
     }
