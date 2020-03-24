@@ -17,7 +17,7 @@ public class ThreadUtils {
         return new ThreadPoolExecutor(
                 10, 50, 3, TimeUnit.MINUTES,
                 new ArrayBlockingQueue<>(5000),
-                new CustomizableThreadFactory("user_common_thread-"),
+                new CustomizableThreadFactory("test-thread-common-"),
                 new ThreadPoolExecutor.CallerRunsPolicy());
     }
 }

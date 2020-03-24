@@ -16,10 +16,10 @@ public class CasOriginDemo {
         ExecutorService executorService = ThreadUtils.buildThreadPool();
         //测试aba
         executorService.execute(CasOriginDemo::mainThread);
-        executorService.execute(CasOriginDemo::otherThread);
+//        executorService.execute(CasOriginDemo::otherThread);
         //测试版版本号避免aba
-        executorService.execute(CasOriginDemo::mainReferenceThread);
-        executorService.execute(CasOriginDemo::otherReferenceThread);
+//        executorService.execute(CasOriginDemo::mainReferenceThread);
+//        executorService.execute(CasOriginDemo::otherReferenceThread);
     }
 
     private static AtomicInteger atomicInteger = new AtomicInteger(0);
