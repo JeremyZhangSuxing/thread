@@ -72,4 +72,5 @@ public class ThreadService {
         sqlSession.close();
         log.debug("end time ---" + new Date());
     }
+
 }

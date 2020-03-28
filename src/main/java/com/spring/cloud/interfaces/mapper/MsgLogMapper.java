@@ -2,8 +2,10 @@ package com.spring.cloud.interfaces.mapper;
 
 import com.spring.cloud.domain.entity.MsgLog;
 import com.spring.cloud.domain.entity.MsgLogExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 public interface MsgLogMapper {
     long countByExample(MsgLogExample example);
@@ -19,4 +21,7 @@ public interface MsgLogMapper {
     int updateByExampleSelective(@Param("record") MsgLog record, @Param("example") MsgLogExample example);
 
     int updateByExample(@Param("record") MsgLog record, @Param("example") MsgLogExample example);
+
+    @Select("select * from msg_log where id = # {id}")
+    MsgLog selectById(Long id);
 }
