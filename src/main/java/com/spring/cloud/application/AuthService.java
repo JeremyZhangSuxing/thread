@@ -1,6 +1,5 @@
 package com.spring.cloud.application;
 
-import com.spring.cloud.domain.annotion.Idempotent;
 import com.spring.cloud.domain.controller.dto.AuthResponseVo;
 import com.spring.cloud.domain.enmus.ApiErrorCode;
 import com.spring.cloud.domain.entity.UserInfo;
@@ -41,7 +40,6 @@ public class AuthService {
     /**
      * 用户注册方法
      */
-    @Idempotent(key = "#req.nickName + '_' + #req.phone")
     public AuthResponseVo registerUserInfo(UserInfoDto req) {
         if (Objects.nonNull(userInfoRepository.queryByNickName(req.getNickName()))) {
             throw BusinessException.buildException(ApiErrorCode.NICK_NAME_ALREADY_REGISTER);

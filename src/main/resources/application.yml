@@ -14,6 +14,12 @@ spring:
     port: 6379
   thymeleaf:
     prefix: classpath:/templates/
+  rabbitmq:
+      host: 122.51.171.126
+      port: 5672
+      username: user01
+      password: ak402507979
+      virtual-host: /
 
 #注册中心
 eureka:
