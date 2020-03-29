@@ -42,8 +42,8 @@ logging:
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: com.spring.cloud.domain.entity
-#  configuration:
-#    map-underscore-to-camel-case: true
+  configuration:
+    map-underscore-to-camel-case: true
 #pagehelper分页插件配置
 pagehelper:
   helper-dialect: mysql
