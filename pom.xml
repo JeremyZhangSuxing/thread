@@ -25,15 +25,9 @@
         <spring-redis>2.1.2.RELEASE</spring-redis>
         <commons.lang.version>3.8.1</commons.lang.version>
         <commons.collections.version>4.1</commons.collections.version>
-
     </properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-		</dependency>
-
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
