@@ -9,8 +9,10 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.cloud.domain.entity.UserInfo;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -42,7 +44,8 @@ public class RedisConfig {
      * 如果配置多个manager 需要指定一个primary主要的
      */
     @Bean
-    public RedisCacheManager cacheManager(RedisConnectionFactory factory) {
+    @Primary
+    public CacheManager cacheManager(RedisConnectionFactory factory) {
 
         RedisSerializer<String> redisSerializer = new StringRedisSerializer();
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
