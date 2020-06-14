@@ -12,6 +12,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMqConfig {
 
+    /**
+     * 默认为jdk的序列化  需要配置转成jackSon格式
+     */
     @Bean
     public MessageConverter buildJsonMessageConverter() {
         return new Jackson2JsonMessageConverter();

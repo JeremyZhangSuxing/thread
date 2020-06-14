@@ -22,10 +22,6 @@ public class User {
      */
     private String position;
 
-//    @Override
-//    public int hashCode() {
-//        return 1;
-//    }
 
     public static void main(String[] args) {
 

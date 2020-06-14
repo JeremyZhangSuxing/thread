@@ -31,6 +31,9 @@ import java.time.Duration;
 @Configuration
 public class RedisConfig {
 
+    /**
+     * 需要用redisTemplate操作对象需要序列化
+     */
     @Bean
     public RedisTemplate<Object, UserInfo> userRedisTemplate(
             RedisConnectionFactory redisConnectionFactory) {
@@ -42,6 +45,9 @@ public class RedisConfig {
 
     /**
      * 如果配置多个manager 需要指定一个primary主要的
+     *
+     * 如果不指定cacheManger 会默认给容器指定一个ConcurrentMapCacheManager
+     * 数据默认保存在 会默认给容器指定一个ConcurrentMap中
      */
     @Bean
     @Primary

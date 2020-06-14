@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 80
 spring:
   application:
     name: eureka-server
@@ -21,6 +21,9 @@ spring:
       username: user01
       password: ak402507979
       virtual-host: /
+      listener:
+        direct:
+          acknowledge-mode: auto  # 消息成功自动发送ack消息
 
 #注册中心  所在的服务不要引入spring-eureka-serve依赖  如果本服务作为eureka服务端 最好不要暴露接口给外部。否则需要额外定制返回响应的报文格式
 #eureka:
