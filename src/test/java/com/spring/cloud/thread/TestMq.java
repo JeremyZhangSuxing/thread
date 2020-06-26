@@ -25,7 +25,7 @@ public class TestMq {
     private RabbitTemplate rabbitTemplate;
 
     /**
-     * AmqpAdmin   mq系统管理功能插件
+     * AmqpAdmin      mq系统管理功能插件
      */
     @Autowired
     private AmqpAdmin amqpAdmin;
