@@ -15,11 +15,11 @@ public class CasOriginDemo {
     public static void main(String[] args) {
         ExecutorService executorService = ThreadUtils.buildThreadPool();
         //测试aba
-        executorService.execute(CasOriginDemo::mainThread);
+//        executorService.execute(CasOriginDemo::mainThread);
 //        executorService.execute(CasOriginDemo::otherThread);
         //测试版版本号避免aba
-//        executorService.execute(CasOriginDemo::mainReferenceThread);
-//        executorService.execute(CasOriginDemo::otherReferenceThread);
+        executorService.execute(CasOriginDemo::mainReferenceThread);
+        executorService.execute(CasOriginDemo::otherReferenceThread);
     }
 
     private static AtomicInteger atomicInteger = new AtomicInteger(0);
@@ -28,11 +28,11 @@ public class CasOriginDemo {
     private static void mainThread() {
         try {
             int expect = atomicInteger.get();
-            System.out.println("操作线程---" + Thread.currentThread().getName() + "当前值 = " + atomicInteger.get());
+            System.out.println("操作线程---" + Thread.currentThread().getName() + "---当前值 = " + atomicInteger.get());
             int newCount = expect + 1;
             Thread.sleep(1000L);
             boolean result = atomicInteger.compareAndSet(expect, newCount);
-            System.out.println("操作线程---" + Thread.currentThread().getName() + "当前值 = " + atomicInteger.get() + "【cas操作】" + result);
+            System.out.println("操作线程---" + Thread.currentThread().getName() + "---当前值 = " + atomicInteger.get() + "【cas操作】" + result);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -42,9 +42,9 @@ public class CasOriginDemo {
         try {
             Thread.sleep(20);
             atomicInteger.incrementAndGet();
-            System.out.println("操作线程---" + Thread.currentThread().getName() + "increment   当前值 = " + atomicInteger.get());
+            System.out.println("操作线程---" + Thread.currentThread().getName() + "---increment   当前值 = " + atomicInteger.get());
             atomicInteger.decrementAndGet();
-            System.out.println("操作线程---" + Thread.currentThread().getName() + "decrement    当前值 = " + atomicInteger.get());
+            System.out.println("操作线程---" + Thread.currentThread().getName() + "---decrement    当前值 = " + atomicInteger.get());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

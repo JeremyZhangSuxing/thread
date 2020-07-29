@@ -24,7 +24,7 @@ import java.util.concurrent.*;
  **/
 @Service
 @Log4j2
-public class AuthService {
+public class AuthService<T> {
     private final UserInfoRepository userInfoRepository;
 
     @Autowired
@@ -117,5 +117,6 @@ public class AuthService {
         log.info(String.format("并发打印日志：用户名【%s】,手机号码【%s】", userInfo.getNickName(), userInfo.getPhone()));
         return Boolean.TRUE;
     }
+
 
 }

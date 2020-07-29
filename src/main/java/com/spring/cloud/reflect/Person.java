@@ -21,6 +21,4 @@ public class Person {
     public void show() {
         System.out.println("this person whose name is jeremy");
     }
-
-
 }

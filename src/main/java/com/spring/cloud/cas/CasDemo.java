@@ -13,7 +13,9 @@ public class CasDemo {
     private static void request() throws InterruptedException {
         TimeUnit.MILLISECONDS.sleep(5L);
         int expect;
+        //更新了才会跳出就循环
         while (!compareAndSwap(expect = getCount(), expect + 1)) {
+            System.out.println("并发竞争中。。。。。");
         }
     }
 

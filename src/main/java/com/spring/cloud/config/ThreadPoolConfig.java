@@ -5,6 +5,7 @@
  */
 package com.spring.cloud.config;
 
+import com.spring.cloud.util.CustomerThreadFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -60,4 +61,16 @@ public class ThreadPoolConfig {
                 new ThreadPoolExecutor.CallerRunsPolicy());
     }
 
+    /**
+     * 构建同步同步队列线程池
+     */
+    public static ThreadPoolExecutor customerThreadPool() {
+        return new ThreadPoolExecutor(0,
+                Integer.MAX_VALUE,
+                1,
+                TimeUnit.SECONDS,
+                new SynchronousQueue<>(),
+                new CustomerThreadFactory("customerThread"),
+                new ThreadPoolExecutor.CallerRunsPolicy());
+    }
 }

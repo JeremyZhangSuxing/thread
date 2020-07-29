@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
@@ -172,5 +174,32 @@ public class ReflectTest {
         Class clazz = Class.forName(classPath);
         return clazz.newInstance();
     }
+
+    @Test
+    public void testList1() throws Exception {
+        ReflectTest.testList(Arrays.asList(new Person("jeremy", 10)));
+    }
+
+    public static <T> void testList(List<T> list) throws Exception {
+        for (T t : list) {
+            Class<?> aClass = t.getClass();
+            Field field = t.getClass().getDeclaredField("name");
+
+            //打开私有访问
+            field.setAccessible(true);
+            //获取属性
+            String name = field.getName();
+            //获取属性值
+            Object value = field.get(t);
+            field.set(t, "suxing");
+            System.out.println("-------------" + field.get(t));
+        }
+    }
+
+    @SafeVarargs
+    public static <T> void testMapping(T... object) {
+
+    }
+
 
 }

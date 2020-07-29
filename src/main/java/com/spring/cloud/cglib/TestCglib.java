@@ -20,5 +20,9 @@ public class TestCglib {
         enhancer.setCallback(callback);
         Student student = (Student) enhancer.create();
         student.study();
+
+        //根据需要来定制代理对象的方法
+        Student stu = (Student) CgConstUtils.getProxyInstance(new Class[]{Student.class}, new MyMethodInterceptor("delete"));
+        stu.study();
     }
 }
