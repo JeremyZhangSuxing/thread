@@ -21,7 +21,7 @@
         <swagger-2>2.4.0</swagger-2>
         <lombok.version>1.16.20</lombok.version>
         <pagehelper>5.1.8</pagehelper>
-        <httpcomponents>4.4.1</httpcomponents>
+        <httpcomponents>4.5.13</httpcomponents>
         <spring-redis>2.1.2.RELEASE</spring-redis>
         <commons.lang.version>3.8.1</commons.lang.version>
         <commons.collections.version>4.1</commons.collections.version>
